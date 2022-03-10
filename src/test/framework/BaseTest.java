@@ -1,6 +1,7 @@
 package framework;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -40,7 +41,8 @@ public class BaseTest {
 	
 	@BeforeMethod
 	@Parameter(value={"browserName"})
-	public void beforeMethodMethod(String browserName, Method TestMethod){
+	public void beforeMethodMethod(String browserName, Method testMethod){
+		logger = extent.createTest(testMethod.getName());
 		setUpDriver(browserName);
 		driver.manage().window().maximize();
 		driver.get(Constants.url);
@@ -51,7 +53,7 @@ public class BaseTest {
 	@AfterMethod
 	 public void afterMethodMethod(ITestResult result){
 		
-		if(result.getStatus() == ITestResult.)
+		if(result.getStatus() == ITestResult.SUCCESS)
 		{
 		  String methodName = result.getMethod().getMethodName();
 		  String logText = "Test Case" + methodName + "Passed";

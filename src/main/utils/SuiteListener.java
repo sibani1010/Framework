@@ -6,9 +6,11 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.testng.IAnnotationTransformer;
 import org.testng.ITestListener;
+import org.testng.annotations.ITestAnnotation;
 
-public class SuiteListener implements ITestListener {
+public class SuiteListener implements ITestListener, IAnnotationTransformer {
 	@Override
 	
 	public void onTestStart(ITestListener iTestResult)
@@ -49,14 +51,20 @@ public class SuiteListener implements ITestListener {
    		
    	}
     @Override
-	public void onStart(ITestListener iTestResult)
+	public void onStart(ITestListener iTestContext)
 	{
 		
 	}
     @Override
-	public void onFinish(ITestListener iTestResult)
+	public void onFinish(ITestListener iTestContext)
 	{
 		
 	}
+    @Override
+    pubic void transform(ITestAnnotation iTestAnnotation,Class aClass, Constructor constructor, Metod method){
+    	iTestAnnotation.setRetryAnalyzer(RetryAnalyzer.class);
+    }
+    
+    
 
 }
